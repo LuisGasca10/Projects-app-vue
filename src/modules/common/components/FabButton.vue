@@ -23,7 +23,7 @@ defineEmits(['click']);
 .top-right {
   @apply top-10 right-10;
 }
-.bottom-lef {
+.bottom-left {
   @apply bottom-10 left-10;
 }
 .bottom-right {
