@@ -11,11 +11,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="hover:bg-base-300">
-          <th>2</th>
-          <td>Hart Hagerty</td>
-          <td>Desktop Support Technician</td>
-          <td>Purple</td>
+        <tr
+          v-for="(project, index) in projectStore.projectList"
+          :key="project.id"
+          class="hover:bg-base-300"
+        >
+          <th>{{ index + 1 }}</th>
+          <td>{{ project.name }}</td>
+          <td>{{ project.tasks.length }}</td>
+          <td><progress class="progress progress-primary w-56" value="0" max="100"></progress></td>
         </tr>
         <!-- row 3 -->
       </tbody>
@@ -69,11 +73,18 @@ import InputModal from '@/modules/common/components/InputModal.vue';
 import AddCircle from '@/modules/common/icons/AddCircle.vue';
 import { ref } from 'vue';
 
+import { useProjectsStore } from '../store/project.store';
+
 const modalOpen = ref(false);
 const customModalOpen = ref(false);
 
+const projectStore = useProjectsStore();
+
+console.log({ projectStore });
+
 const onNewValue = (projectName: string) => {
-  console.log({ projectName });
+  projectStore.addProject(projectName);
+  modalOpen.value = false;
 };
 </script>
 

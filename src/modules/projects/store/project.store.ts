@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import type { Project } from '../interfaces/project.interface';
-
+import { v4 as uuidv4 } from 'uuid';
 const initialLoad = (): Project[] => {
   return [
     { id: '1', name: 'Project 1', tasks: [] },
@@ -12,5 +12,13 @@ const initialLoad = (): Project[] => {
 
 export const useProjectsStore = defineStore('projects', () => {
   const projects = ref<Project[]>(initialLoad());
-  return { projects };
+
+  const addProject = (name: string) => {
+    projects.value.push({ id: uuidv4(), name, tasks: [] });
+  };
+
+  return {
+    projectList: computed(() => [...projects.value]),
+    addProject,
+  };
 });
